@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scanner Example</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script>
+        window.onload = () => {
+            const onScanSuccess = (decodedText, decodedResult) => {
+                console.log(`Code matched = ${decodedText}`, decodedResult);
+                // alert(`Code matched = ${decodedText}`);
+                window.location = decodedText;
+            }
+
+            const onScanFailure = (error) => {
+                console.warn(`Code scan error = ${error}`);
+            }
+
+            let html5QrcodeScanner = new Html5QrcodeScanner(
+                "reader",
+                { fps: 10, qrbox: {width: 250, height: 250} },
+                /* verbose= */ false);
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        }
+    </script>
+</head>
+<body>
+    <h1>Scanner</h1>
+    <div id="reader" style="width: 300px;"></div>
+</body>
+</html>
